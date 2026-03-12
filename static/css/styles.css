@@ -1,0 +1,106 @@
+/* Custom Styles for MovieRecs */
+
+:root {
+    --bs-dark: #121212;
+    --bs-dark-rgb: 18, 18, 18;
+    --card-bg: #1e1e1e;
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bs-dark);
+    color: #e0e0e0;
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+}
+
+/* Card Styling & Hover Effects */
+.movie-card {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    overflow: hidden;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    border-color: rgba(220, 53, 69, 0.3); /* Bootstrap danger color hint */
+}
+
+.movie-card img {
+    height: 350px;
+    object-fit: cover;
+    transition: transform var(--transition-speed) ease;
+}
+
+.movie-card:hover img {
+    transform: scale(1.05);
+}
+
+.card-img-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+/* Overlay for rating */
+.rating-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: #ffd700; /* Gold */
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    z-index: 2;
+}
+
+/* Lines clamping for descriptions/titles */
+.truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Interactive elements */
+.hover-danger {
+    transition: color 0.2s ease;
+}
+
+.hover-danger:hover {
+    color: #dc3545 !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bs-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Utilities */
+.pointer-events-none {
+    pointer-events: none;
+}

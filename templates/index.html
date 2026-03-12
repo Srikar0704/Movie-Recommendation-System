@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - MovieRecs{% endblock %}
+
+{% block content %}
+<div class="row mb-5">
+    <div class="col-12 text-center hero-section py-5 rounded-4 shadow-sm bg-dark" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://image.tmdb.org/t/p/original/wPU78OPN4BYEgWYdX881zB2ebB.jpg') center/cover;">
+        <h1 class="display-3 fw-bold text-white mb-3 mt-4">Discover Your Next Favorite Movie</h1>
+        <p class="lead text-light mb-5 px-3">Explore popular movies, search for titles, and build your personalized list of favorites.</p>
+    </div>
+</div>
+
+<div class="row mb-4 align-items-center">
+    <div class="col-md-6">
+        <h2 id="sectionTitle" class="fw-bold mb-0"><i class="bi bi-stars text-warning me-2"></i>Popular Movies</h2>
+    </div>
+</div>
+
+<!-- Loading Spinner -->
+<div id="loadingSpinner" class="text-center my-5 d-none">
+    <div class="spinner-border text-danger" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3 text-muted">Loading movies...</p>
+</div>
+
+<!-- Error Alert -->
+<div id="errorMessage" class="alert alert-danger d-none" role="alert">
+    <strong>Error!</strong> <span id="errorText">Failed to load data.</span>
+</div>
+
+<!-- Movies Grid -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="moviesGrid">
+    <!-- Movies will be rendered here dynamically via JS -->
+</div>
+
+<!-- Pagination (Optional handling in JS) -->
+<div class="d-flex justify-content-center mt-5 mb-3 d-none" id="paginationControls">
+    <button class="btn btn-outline-secondary me-2" id="prevPageBtn" disabled>Previous</button>
+    <button class="btn btn-outline-danger" id="nextPageBtn">Next</button>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        // Load popular movies automatically on index page
+        MovieApp.fetchPopularMovies();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Movie Details - MovieRecs{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <a href="javascript:history.back()" class="text-decoration-none text-muted hover-danger">
+        <i class="bi bi-arrow-left me-1"></i> Back
+    </a>
+</div>
+
+<!-- Loading Spinner -->
+<div id="detailsLoadingSpinner" class="text-center my-5">
+    <div class="spinner-border text-danger" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<!-- Error Alert -->
+<div id="detailsErrorMessage" class="alert alert-danger d-none" role="alert">
+    <strong>Error!</strong> Failed to load movie details.
+</div>
+
+<!-- Movie Details Container -->
+<div id="movieDetailsContainer" class="d-none">
+    <!-- Backdrop Image -->
+    <div class="position-absolute top-0 start-0 w-100 h-100 pointer-events-none" id="backdropContainer" style="z-index: -1; opacity: 0.15; mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%); -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);">
+    </div>
+
+    <div class="row mt-4 mb-5">
+        <!-- Poster -->
+        <div class="col-md-4 mb-4 mb-md-0 text-center text-md-start">
+            <img id="detailPoster" src="" alt="Movie Poster" class="img-fluid rounded-4 shadow-lg w-100" style="max-width: 350px;">
+        </div>
+        
+        <!-- Info -->
+        <div class="col-md-8">
+            <h1 id="detailTitle" class="fw-bold display-5 mb-2">Movie Title</h1>
+            <p class="text-muted fs-5 mb-3" id="detailTagline">Tagline goes here</p>
+            
+            <div class="d-flex flex-wrap gap-3 mb-4 align-items-center">
+                <span class="badge bg-warning text-dark fs-6 pointer-events-none px-3 py-2 rounded-pill">
+                    <i class="bi bi-star-fill me-1"></i> <span id="detailRating">0.0</span>/10
+                </span>
+                <span class="text-muted" id="detailReleaseDate"><i class="bi bi-calendar me-1"></i> Release Date</span>
+                <span class="text-muted" id="detailDuration"><i class="bi bi-clock me-1"></i> Duration</span>
+            </div>
+            
+            <div class="mb-4" id="detailGenres">
+                <!-- Genre badges -->
+            </div>
+            
+            <h4 class="fw-semibold mb-3 border-bottom border-secondary pb-2">Overview</h4>
+            <p id="detailOverview" class="fs-5 lh-base text-light opacity-75 mb-5" style="max-width: 800px;">
+                Movie overview text.
+            </p>
+            
+            <!-- Action Area -->
+            <div class="bg-dark p-4 rounded-4 border border-secondary shadow-sm">
+                <!-- Add Form -->
+                <div id="addToFavSection">
+                    <h5 class="mb-3 d-flex align-items-center"><i class="bi bi-plus-circle me-2 text-primary"></i>Add to Favorites</h5>
+                    <form id="addToFavForm">
+                        <div class="mb-3">
+                            <label for="reviewText" class="form-label text-muted small">Personal Notes/Review (Optional)</label>
+                            <textarea class="form-control bg-dark text-light border-secondary" id="reviewText" rows="3" placeholder="Add some notes about this movie..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill fw-medium" id="addToFavBtn">
+                            <i class="bi bi-heart me-2"></i>Add to Favorites
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Already Added State -->
+                <div id="alreadyFavSection" class="d-none">
+                    <div class="alert alert-success bg-success bg-opacity-10 border-success border-opacity-25 d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                        <div>
+                            <h6 class="alert-heading mb-1 text-success fw-bold">In Your Favorites</h6>
+                            <p class="mb-0 text-success text-opacity-75 small">You have already added this movie.</p>
+                        </div>
+                    </div>
+                    <div class="mt-3" id="existingReviewDisplay">
+                        <h6 class="text-muted small mb-1">Your Review:</h6>
+                        <p class="fst-italic text-light opacity-75" id="existingReviewText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Pass the movie ID from Flask correctly
+    const PAGE_MOVIE_ID = {{ movie_id }};
+</script>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        MovieApp.fetchMovieDetails(PAGE_MOVIE_ID);
+    });
+</script>
+{% endblock %}
