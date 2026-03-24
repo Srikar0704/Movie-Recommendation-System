@@ -33,7 +33,8 @@ const MovieApp = (function () {
     // Generator for Movie Cards HTML
     function createMovieCard(movie, isFavorite = false, dbId = null, listReview = '') {
         const posterUrl = movie.poster_path ? `${TMDB_IMG_BASE}${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
-        const rating = movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A';
+        const parsedRating = parseFloat(movie.vote_average);
+        const rating = !isNaN(parsedRating) ? parsedRating.toFixed(1) : 'N/A';
         const title = movie.title || movie.name;
 
         let actionButtons = '';
@@ -174,7 +175,8 @@ const MovieApp = (function () {
                     $('#detailTitle').text(movie.title);
                     $('#detailTagline').text(movie.tagline || '');
                     $('#detailOverview').text(movie.overview || 'No overview available.');
-                    $('#detailRating').text(movie.vote_average.toFixed(1));
+                    const detailParsedRating = parseFloat(movie.vote_average);
+                    $('#detailRating').text(!isNaN(detailParsedRating) ? detailParsedRating.toFixed(1) : 'N/A');
                     $('#detailReleaseDate').html(`<i class="bi bi-calendar me-1"></i>${movie.release_date || 'Unknown'}`);
                     $('#detailDuration').html(`<i class="bi bi-clock me-1"></i>${movie.runtime ? movie.runtime + ' min' : 'Unknown'}`);
 
@@ -220,7 +222,7 @@ const MovieApp = (function () {
                             movie_id: movie.id,
                             title: movie.title,
                             poster: movie.poster_path, // send path, not full url
-                            rating: parseFloat(movie.vote_average.toFixed(1)),
+                            rating: !isNaN(parseFloat(movie.vote_average)) ? parseFloat(parseFloat(movie.vote_average).toFixed(1)) : 0,
                             review: $('#reviewText').val().trim()
                         };
 
