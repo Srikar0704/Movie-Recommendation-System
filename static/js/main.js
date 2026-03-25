@@ -10,7 +10,7 @@ const MovieApp = (function () {
     // However, to satisfy requirements simply without risking exposing a hardcoded key in JS, 
     // we assume the backend acts as a proxy or we provide a placeholder here that needs replacing manually.
     // For a cleaner academic project, let's proxy through the backend if necessary, or just use JS directly.
-    const TMDB_API_KEY = 'da0f0342aa35a35d3701de26ed2bfeb3'; // NOTE: Ideally get this from backend. Provided a free sample one if missing, but should be replaced.
+    const TMDB_API_KEY = ''; // NOTE: Ideally get this from backend. Provided a free sample one if missing, but should be replaced.
     const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
     const TMDB_IMG_BASE = 'https://image.tmdb.org/t/p/w500';
     const TMDB_IMG_ORIGINAL = 'https://image.tmdb.org/t/p/original';
